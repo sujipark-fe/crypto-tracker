@@ -4,6 +4,7 @@ import App from "./App";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={lightTheme}>
