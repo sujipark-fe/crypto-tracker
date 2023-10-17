@@ -1,5 +1,5 @@
-import { useLocation, useParams, Switch, Route } from "react-router";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
+import { Switch, Route, useLocation, useParams, useRouteMatch, Link } from "react-router-dom";
 import styled from "styled-components";
 import { Container, Header, Title, Loader } from "./Coins";
 import Chart from "./Chart";
@@ -12,6 +12,7 @@ const Overview = styled.div`
   background-color: rgba(0, 0, 0, .5);
   border-radius: 10px;
 `;
+
 const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,8 +24,30 @@ const OverviewItem = styled.div`
     text-transform: uppercase;
   }
 `;
+
 const Description = styled.p`
   margin: 20px 0;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 25px 0px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  padding: 7px 0px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: ${(props) => props.isActive ? props.theme.accentColor : props.theme.textColor};
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  a {
+    display: block;
+  }
 `;
 
 interface RouteParams {
@@ -105,6 +128,8 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
+  const priceMatch = useRouteMatch("/:coinId/price");
+  const chartMatch = useRouteMatch("/:coinId/chart");
 
   useEffect(() => {
     (async () => {
@@ -145,6 +170,16 @@ function Coin() {
               <span>{info?.open_source ? "Yes" : "No"}</span>
             </OverviewItem>
           </Overview>
+
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
+
           <Description>{info?.description}</Description>
           <Overview>
             <OverviewItem>
@@ -157,10 +192,10 @@ function Coin() {
             </OverviewItem>
           </Overview>
           <Switch>
-            <Route path={`/${coinId}/price`}>
+            <Route path={`/:coinId/price`}>
               <Price />
             </Route>
-            <Route path={`/${coinId}/chart`}>
+            <Route path={`/:coinId/chart`}>
               <Chart />
             </Route>
           </Switch>
