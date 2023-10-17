@@ -17,6 +17,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 33%;
   span:first-child {
     font-size: 10px;
     font-weight: 400;
@@ -37,7 +38,6 @@ const Tabs = styled.div`
 `;
 
 const Tab = styled.span<{ isActive: boolean }>`
-  padding: 7px 0px;
   font-size: 12px;
   font-weight: 400;
   text-align: center;
@@ -47,6 +47,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   border-radius: 10px;
   a {
     display: block;
+    padding: 7px 0px;
   }
 `;
 
@@ -150,7 +151,7 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{loading ? "loading" : info?.name}</Title>
+        <Title>{state?.name ? state.name : loading ? "Loading..." : info?.name}</Title>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import { fetchCoins } from "../api";
 
 export const Container = styled.div`
   max-width: 480px;
@@ -53,37 +55,7 @@ const Img = styled.img`
   object-fit: cover;
 `;
 
-const coins = [
-  {
-    id: "btc-bitcoin",
-    name: "Bitcoin",
-    symbol: "BTC",
-    rank: 1,
-    is_new: false,
-    is_active: true,
-    type: "coin",
-  },
-  {
-    id: "eth-ethereum",
-    name: "Ethereum",
-    symbol: "ETH",
-    rank: 2,
-    is_new: false,
-    is_active: true,
-    type: "coin",
-  },
-  {
-    id: "hex-hex",
-    name: "HEX",
-    symbol: "HEX",
-    rank: 3,
-    is_new: false,
-    is_active: true,
-    type: "token",
-  },
-]
-
-interface CoinInterface {
+interface ICoin {
   id: string,
   name: string,
   symbol: string,
@@ -94,37 +66,19 @@ interface CoinInterface {
 }
 
 function Coins() {
-  // const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await fetch("https://api.coinpaprika.com/v1/coins");
-  //     const json = await response.json();
-  //     setCoins(json.slice(0, 100)); // 100개 까지만 자르기
-  //     // setLoading(false);
-  //   })();
-  // }, []);
-  // const getCoins = async() =>{
-  //   const res = await axios("https://api.coinpaprika.com/v1/coins");
-  //   setCoins(res.data.slice(0, 100));
-  //   setLoading(false);
-  // };
-
-  // useEffect(()=>{
-  //   getCoins();
-  // }, []);
+  // useQuery({ queryKey(쿼리 고유 식별자), queryFn(fetcher 함수) });
+  const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
 
   return (
     <Container>
       <Header>
         <Title>코인</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
-      ): (
+      ) : (
         <CoinsList>
-          {coins.map(coin => (
+          {data?.slice(0, 100).map((coin) => (
             <Coin key={coin.id}>
               <Link
                 to={{
