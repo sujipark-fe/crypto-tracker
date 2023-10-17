@@ -2,7 +2,6 @@
   "name": "crypto-tracker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://charmmming7.github.io/crypto-tracker",
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",
     "@testing-library/jest-dom": "^5.17.0",
