@@ -1,14 +1,35 @@
-# React Masterclass
+# Crypto(Coin) Tracker
 
-Learn and dominate the React ecosystem once and for all.
+This is a cryptocurrency tracker site created with React.
+This is a site where [React JS masterclass](https://nomadcoders.co/react-masterclass) lectures have been cloned.
+
+- preview: https://charmmming7.github.io/crypto-tracker
 
 ### Using:
 
 - Styled Components
-- Recoil
 - React Query
 - React Router DOM
-- Apex Charts
 - React Spring
 - Typescript
-- Firebase
+- Apex Charts (To be added)
+
+
+### API
+Get information about coin prices, trading volume, market capitalization, etc. from the cryptocurrency world from [Coinpaprika API](https://api.coinpaprika.com).
+
+
+## Getting Started
+```
+npm install
+```
+or
+```
+yarn add
+```
+
+## Usage
+```
+npm run start
+yarn start
+```
