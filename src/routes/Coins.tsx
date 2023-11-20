@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "react-query";

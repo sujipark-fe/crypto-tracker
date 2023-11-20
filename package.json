@@ -5,6 +5,7 @@
   "homepage": "https://charmmming7.github.io/crypto-tracker",
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",
+    "@tanstack/react-query-devtools": "^5.4.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
