@@ -16,3 +16,15 @@ export function fetchCoinTickers(coinId: string) {
     response.json()
   );
 }
+
+export function fetchCoinHistory (coinId: string) {
+  // const endDate = Math.floor(Date.now() / 1000); // 현재 시간
+  // const startDate = endDate - 60 * 60 * 24 * 7; // 일주일 전
+  // return fetch(`${BASE_URL}/coins/${coinId}/ohlcv/historical?start=${startDate}&end=${endDate}`).then((response) =>
+  //   response.json()
+  // );
+  const BASE_URL = `https://ohlcv-api.nomadcoders.workers.dev`; // 날짜검색 부분 api 유료화로 강의 자체 제공 api로 변경
+  return fetch(`${BASE_URL}/?coinId=${coinId}`).then((response) =>
+    response.json()
+  );
+}
