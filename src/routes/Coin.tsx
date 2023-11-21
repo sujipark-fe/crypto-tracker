@@ -1,56 +1,11 @@
 import { Switch, Route, useLocation, useParams, useRouteMatch, Link } from "react-router-dom";
-import styled from "styled-components";
-import { Container, Header, Title, Loader } from "./Coins";
+import { Container, Header, BtnBack, Title, Loader} from "../style/CoinsStyle";
+import { Overview, OverviewItem, Description, Tabs, Tab} from "../style/CoinStyle";
 import Chart from "./Chart";
 import Price from "./Price";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-
-const Overview = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: rgba(0, 0, 0, .5);
-  border-radius: 10px;
-`;
-
-const OverviewItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 33%;
-  span:first-child {
-    font-size: 10px;
-    font-weight: 400;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-  }
-`;
-
-const Description = styled.p`
-  margin: 20px 0;
-`;
-
-const Tabs = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin: 25px 0px;
-`;
-
-const Tab = styled.span<{ $isActive: boolean }>`
-  font-size: 12px;
-  font-weight: 400;
-  text-align: center;
-  text-transform: uppercase;
-  color: ${(props) => props.$isActive ? props.theme.accentColor : props.theme.textColor};
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  a {
-    display: block;
-    padding: 7px 0px;
-  }
-`;
+import {ReactComponent as IconBack} from "../assets/back.svg";
 
 interface RouteParams {
   coinId: string;
@@ -137,6 +92,10 @@ function Coin() {
     <Container>
       <Header>
         <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
+        <BtnBack href={process.env.PUBLIC_URL}>
+          <span className="blind">back</span>
+          <IconBack />
+        </BtnBack>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
@@ -157,15 +116,6 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Tabs>
-            <Tab $isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
-            <Tab $isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
-            </Tab>
-          </Tabs>
-
           <Description>{infoData?.description}</Description>
           <Overview>
             <OverviewItem>
@@ -177,12 +127,22 @@ function Coin() {
               <span>{tickersData?.max_supply}</span>
             </OverviewItem>
           </Overview>
+
+          <Tabs>
+            <Tab $isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab $isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
+
           <Switch>
-            <Route path={`/:coinId/price`}>
-              <Price />
-            </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId}/>
+            </Route>
+            <Route path={`/:coinId/price`}>
+              <Price />
             </Route>
           </Switch>
         </>
