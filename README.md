@@ -33,3 +33,8 @@ yarn add
 npm run start
 yarn start
 ```
+
+## Deploy
+```
+npm run deploy
+```
