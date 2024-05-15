@@ -36,5 +36,6 @@ yarn start
 
 ## Deploy
 ```
-npm run deploy
+yarn build
+yarn gh-pages -d build
 ```
