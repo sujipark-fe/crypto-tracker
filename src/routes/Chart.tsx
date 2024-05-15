@@ -80,7 +80,12 @@ function Chart({ coinId }: ChartProps) {
             enabled: false
           }
         },
-        colors: ['#9c88ff'],
+        fill: {
+          type: "gradient",
+          gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
+        },
+        colors: ["#0fbcf9"],
+        // colors: ['#9c88ff'],
         labels: date
       }}
     />)}
