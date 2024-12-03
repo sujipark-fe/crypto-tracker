@@ -3,7 +3,7 @@
 This is a cryptocurrency tracker site created with React.
 This is a site where [React JS masterclass](https://nomadcoders.co/react-masterclass) lectures have been cloned.
 
-- preview: https://charmmming7.github.io/crypto-tracker
+- preview: https://sujipark-fe.github.io/crypto-tracker
 
 ### Using:
 
